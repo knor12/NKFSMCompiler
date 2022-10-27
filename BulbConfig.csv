@@ -1,0 +1,18 @@
+$NAME,Bulb,,,
+$INITIALSTATE,Level0,,,
+$ERRORSTATE,Error_st,,,
+,,,,
+Transition,Start State,Event,End State,Transition Handler
+$TRANSITION,Level0,Up,Level1,Level1Handler
+$TRANSITION,Level0,Down,Level0,Level0Handler
+$TRANSITION,Level0,Error,Error_st,ErrorHandler
+,,,,
+$TRANSITION,Level1,Up,Level2,Level2Handler
+$TRANSITION,Level1,Down,Level0,Level0Handler
+$TRANSITION,Level1,Error,Error_st,ErrorHandler
+,,,,
+$TRANSITION,Level2,Up,Level2,Level2Handler
+$TRANSITION,Level2,Down,Level1,Level1Handler
+$TRANSITION,Level2,Error,Error_st,ErrorHandler
+,,,,
+$TRANSITION,Error_st,reset,Level0,ResetHandler
