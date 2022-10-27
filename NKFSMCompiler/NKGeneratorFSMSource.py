@@ -76,7 +76,7 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
     \n"
 
             st+=f'\
-    return 0;\
+    return 0;\n\
 }}\n'
 
 
