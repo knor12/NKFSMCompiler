@@ -39,18 +39,27 @@ class NKTransitions:
             handlers.append(transition.TransitionHandler)
         handlers = list(dict.fromkeys(handlers))     
         return  handlers         
-
+    
+    def getConditions(self):
+        conditions = []
+        for transition in self.transitions:
+            if (transition.Condition!=""):
+                conditions.append(transition.Condition)
+        conditions = list(dict.fromkeys(conditions))     
+        return  conditions    
 
     def __str__(self):
         Events=self.getEvents()
         States=self.getStates()
         Handlers=self.getHandlers()
+        Conditions = self.getConditions()
         st =f'Name={self.Name} \n'
         st+=f'Initial State={self.initialState}\n'
         st+=f'Error State={self.errorSate}\n'
         st+=f'States={States}\n'
         st+=f'Handlers={Handlers}\n'
         st+=f'Events={Events}\n\n'
+        st+=f'conditions={Conditions}\n\n'
         for transition in self.transitions:
             st +=f'Transition={transition}\n'
         return st

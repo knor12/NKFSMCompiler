@@ -25,7 +25,7 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Level0)
+    if ((fsm->state == Level0))
     {
         ret = Level1Handler(o);
         if (ret < 0)
@@ -39,7 +39,7 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level1)
+    if ((fsm->state == Level1))
     {
         ret = Level2Handler(o);
         if (ret < 0)
@@ -53,7 +53,7 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level2)
+    if ((fsm->state == Level2))
     {
         ret = Level2Handler(o);
         if (ret < 0)
@@ -67,7 +67,7 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Error_st)
+    if ((fsm->state == Error_st))
     {
         ret = ErrorHandlerUp(o);
         if (ret < 0)
@@ -89,7 +89,7 @@ int BulbFSM_Down(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Level0)
+    if ((fsm->state == Level0))
     {
         ret = Level0Handler(o);
         if (ret < 0)
@@ -103,7 +103,7 @@ int BulbFSM_Down(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level1)
+    if ((fsm->state == Level1))
     {
         ret = Level0Handler(o);
         if (ret < 0)
@@ -117,7 +117,7 @@ int BulbFSM_Down(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level2)
+    if ((fsm->state == Level2)&&(100*2!=200))
     {
         ret = Level1Handler(o);
         if (ret < 0)
@@ -131,7 +131,21 @@ int BulbFSM_Down(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Error_st)
+    if ((fsm->state == Level2)&&(100*2==200))
+    {
+        ret = Level0Handler(o);
+        if (ret < 0)
+        {
+            fsm->state = Error_st;
+            return ret;
+        }else 
+        {
+            fsm->state = Level0;
+            return ret;
+        }
+    }
+    
+    if ((fsm->state == Error_st))
     {
         ret = ErrorHandlerDown(o);
         if (ret < 0)
@@ -153,7 +167,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Level0)
+    if ((fsm->state == Level0))
     {
         ret = ErrorHandler(o);
         if (ret < 0)
@@ -167,7 +181,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level1)
+    if ((fsm->state == Level1))
     {
         ret = ErrorHandler(o);
         if (ret < 0)
@@ -181,7 +195,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Level2)
+    if ((fsm->state == Level2))
     {
         ret = ErrorHandler(o);
         if (ret < 0)
@@ -195,7 +209,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o)
         }
     }
     
-    if (fsm->state == Error_st)
+    if ((fsm->state == Error_st))
     {
         ret = ErrorHandler(o);
         if (ret < 0)
@@ -217,7 +231,7 @@ int BulbFSM_TimeOut500(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Level2)
+    if ((fsm->state == Level2))
     {
         ret = Level2TimeOut500Handler(o);
         if (ret < 0)
@@ -239,7 +253,7 @@ int BulbFSM_TimeOut1000(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Level2)
+    if ((fsm->state == Level2))
     {
         ret = Level2TimeOut1000Handler(o);
         if (ret < 0)
@@ -261,7 +275,7 @@ int BulbFSM_reset(struct BulbFSM * fsm, void * o)
 {
 
     int ret = 0; 
-    if (fsm->state == Error_st)
+    if ((fsm->state == Error_st))
     {
         ret = ResetHandler(o);
         if (ret < 0)

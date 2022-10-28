@@ -5,10 +5,11 @@ import NKTransition
 
 class NKTransition:
 
-    def __init__(self, OriginalState, Event, NewState , TransitionHandler):
+    def __init__(self, OriginalState, Event, NewState , TransitionHandler,Condition):
         self.OriginalState =OriginalState
         self.Event = Event
         self.NewState = NewState 
+        self.Condition = Condition
         self.TransitionHandler = TransitionHandler.replace("\n" , "")
    
     def __str__(self):
