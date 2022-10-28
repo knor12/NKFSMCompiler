@@ -1,5 +1,6 @@
 __author__      = "Noreddine Kessa"
-__copyright__   = "MIT License"
+__copyright__   = "!"
+__license__ = "MIT License"
 
 from NKTransitions import *
 from NKTransition import *
