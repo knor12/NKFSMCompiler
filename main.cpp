@@ -11,7 +11,7 @@
 #define error (3)
 #define noEvent (4)
 #define reset (5)
-uint32_t evets[] = {up, up, up, down, down, up, error,error,down, down, up,reset, down, down, up, up, up,up};
+uint32_t evets[] = {up, up, up, down, down, up, error,error,down, down, up,reset, down, down, up, up, up,up,up,up,up,up,up,up,up,up,up, down, down, down, down, down, down, down, down, down, down, down, down, down, down};
 
 
 uint32_t timeOut500;

@@ -22,6 +22,11 @@ typedef enum
     Level1,
     Error_st,
     Level2,
+    Level3,
+    Level4,
+    Level5,
+    Level6,
+    Level7,
 }FSMBulb_State_t;
 
 

@@ -65,15 +65,14 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
     if ((fsm->state == {transition.OriginalState}){transition.Condition})\n\
     {{\n\
         ret = {transition.TransitionHandler}(o);\n\
-        if (ret < 0)\n\
-        {{\n\
-            fsm->state = {self.transitions.errorSate};\n\
-            return ret;\n\
-        }}else \n\
+        if (ret >= 0)\n\
         {{\n\
             fsm->state = {transition.NewState};\n\
-            return ret;\n\
+        }}else \n\
+        {{\n\
+            fsm->state = {self.transitions.errorSate};\n\
         }}\n\
+        return ret;\n\
     }}\n\
     \n"
 

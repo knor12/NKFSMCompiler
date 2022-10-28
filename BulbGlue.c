@@ -63,3 +63,18 @@ int Level2TimeOut1000Handler(void * o){
     /*add your glue code below*/
         printf("Level2TimeOut1000Handler\n" );
 }
+
+int incrementLevel(void * o){
+    /*add your glue code below*/
+        printf("incrementLevel\n" );
+}
+
+int decrementLevel(void * o){
+    /*add your glue code below*/
+        printf("decrementLevel\n" );
+}
+
+int noOp(void * o){
+    /*add your glue code below*/
+        printf("noOp\n" );
+}
