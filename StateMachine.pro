@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     BulbFSM.c \
     BulbGlue.c \
+    GenericTimer.cpp \
     main.cpp
 
 HEADERS += \
     BulbFSM.h \
-    BulbGlue.h
+    BulbGlue.h \
+    GenericTimer.h
 
 FORMS +=
 

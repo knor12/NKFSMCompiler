@@ -42,3 +42,24 @@ int ResetHandler(void * o){
     /*add your glue code below*/
         printf("ResetHandler\n" );
 }
+
+int ErrorHandlerUp(void * o){
+    /*add your glue code below*/
+        printf("ErrorHandlerUp\n" );
+}
+
+int ErrorHandlerDown(void * o){
+    /*add your glue code below*/
+        printf("ErrorHandlerDown\n" );
+}
+
+int Level2TimeOut500Handler(void * o){
+    /*add your glue code below*/
+        printf("Level2TimeOut500Handler\n" );
+}
+
+
+int Level2TimeOut1000Handler(void * o){
+    /*add your glue code below*/
+        printf("Level2TimeOut1000Handler\n" );
+}
