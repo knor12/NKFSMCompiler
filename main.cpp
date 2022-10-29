@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    //return 0;
+    return 0;
     GenericTimer_Init();
     TIMEOUT_ARM(timeOut500);
     TIMEOUT_ARM(timeOut1000);
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         QCoreApplication::processEvents();
         //QThread::msleep(100);
         //printf(".");
-        if (TIMEOUT_HAPPEND(timeOut500, 250))
+        if (TIMEOUT_HAPPEND(timeOut500, 5))
         {
             TIMEOUT_ARM(timeOut500);
             BulbFSM_TimeOut500(&bulb, (void*)strError);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
 
 
-        if (TIMEOUT_HAPPEND(timeOut1000, 1000))
+        if (TIMEOUT_HAPPEND(timeOut1000, 10))
         {
             TIMEOUT_ARM(timeOut1000);
             BulbFSM_TimeOut1000(&bulb, (void*)strError);

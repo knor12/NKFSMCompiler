@@ -56,13 +56,15 @@ void {self.structName}_Init(struct {self.structName} * fsm)\n\
         for event in events:
             #event handler name
             st+=f'\n\n\
+/*this function processes the event {event} based on current state and conditions specified.*/\n\
 int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
 {{\n\
 \n\
     int ret = 0; \n'
             for transition in transitions:
                 if event == transition.Event:
-                    st+=f"\
+                    st+=f"\n\
+    {transition.Comment}\n\
     if ((fsm->state == {transition.OriginalState}){transition.Condition})\n\
     {{\n\
         ret = {transition.TransitionHandler}(o);\n\

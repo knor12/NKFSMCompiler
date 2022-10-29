@@ -35,7 +35,7 @@ class NKConfigToTransitions:
             #process multiple words lines
             if len(words)>= 5:
                 if (words[0]=="$TRANSITION"):
-                    self.transitions.append(NKTransition(OriginalState=words[1], Event=words[2], NewState=words[3] , TransitionHandler=words[4], Condition=words[5]))
+                    self.transitions.append(NKTransition(OriginalState=words[1], Event=words[2], NewState=words[3] , TransitionHandler=words[4], Condition=words[5], Comment=words[6]))
                     
         if (self.transitions.Name==""):
             print("Error: $NAME not defind\n")

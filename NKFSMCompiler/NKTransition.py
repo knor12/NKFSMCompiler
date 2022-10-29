@@ -6,13 +6,14 @@ import NKTransition
 
 class NKTransition:
 
-    def __init__(self, OriginalState, Event, NewState , TransitionHandler,Condition):
+    def __init__(self, OriginalState, Event, NewState , TransitionHandler,Condition, Comment):
         self.OriginalState =OriginalState
         self.Event = Event
         self.NewState = NewState 
         self.Condition = Condition
         self.TransitionHandler = TransitionHandler.replace("\n" , "")
+        self.Comment = Comment.replace("\n" , "")
    
     def __str__(self):
-        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler}'
+        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler} , Comment={self.TransitionHandler}'
         return st
