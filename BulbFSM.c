@@ -12,7 +12,7 @@
 #include <stdlib.h> 
 
 
-#define MAX_NUM_STATES (9)
+#define MAX_NUM_STATES (10)
 
 
 /*initialization function*/
@@ -61,7 +61,7 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
     }
     
 
-    
+    /*this should never transition. an example what you can do with conditions to influence the FSM behavior*/
     if ((fsm->state == Level2)&&(0))
     {
         
@@ -78,8 +78,8 @@ int BulbFSM_Up(struct BulbFSM * fsm, void * o)
     }
     
 
-    
-    if (fsm->state == Level2)
+    uint32_t * arg = (uint32_t*)o ;/*only if proper conditions are met*/
+    if ((fsm->state == Level2)&& (*(arg+1) ==10))
     {
         ret=onExitLevel2(o);
         ret|=incrementLevel(o);
@@ -407,7 +407,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o)
     {
         ret=onExitLevel0(o);
         ret|=ErrorHandler(o);
-        
+        ret|=onEnterError(o);
         if (ret >= 0)
         {
             fsm->state = Error_st;
@@ -489,6 +489,100 @@ int BulbFSM_reset(struct BulbFSM * fsm, void * o)
         if (ret >= 0)
         {
             fsm->state = Level0;
+        }else 
+        {
+            fsm->state = Error_st;
+        }
+        return ret;
+    }
+    
+    return 0;
+}
+
+
+/*this function processes the event SomeEvent based on current state and conditions specified.*/
+int BulbFSM_SomeEvent(struct BulbFSM * fsm, void * o)
+{
+
+    int ret = 0; 
+
+    (void)o;/*example transaction that does nothing */
+    if (fsm->state == Level8)
+    {
+        
+        
+        
+        if (ret >= 0)
+        {
+            fsm->state = Level8;
+        }else 
+        {
+            fsm->state = Error_st;
+        }
+        return ret;
+    }
+    
+
+    
+    if (fsm->state == Level8)
+    {
+        
+        
+        
+        if (ret >= 0)
+        {
+            fsm->state = Level8;
+        }else 
+        {
+            fsm->state = Error_st;
+        }
+        return ret;
+    }
+    
+
+    
+    if (fsm->state == Level8)
+    {
+        
+        
+        
+        if (ret >= 0)
+        {
+            fsm->state = Level8;
+        }else 
+        {
+            fsm->state = Error_st;
+        }
+        return ret;
+    }
+    
+
+    
+    if (fsm->state == Level8)
+    {
+        
+        
+        
+        if (ret >= 0)
+        {
+            fsm->state = Level8;
+        }else 
+        {
+            fsm->state = Error_st;
+        }
+        return ret;
+    }
+    
+
+    
+    if (fsm->state == Level8)
+    {
+        
+        
+        
+        if (ret >= 0)
+        {
+            fsm->state = Level8;
         }else 
         {
             fsm->state = Error_st;

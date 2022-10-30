@@ -136,3 +136,12 @@ int ErrorHandlerDown(void * o)
 
 return 0;
 }
+
+
+int onEnterError(void * o)
+{
+/*add your glue code below*/
+        printf("ErrorHandlerDown \n");
+
+return 0;
+}

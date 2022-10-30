@@ -15,6 +15,8 @@ extern "C"
 { 
 #endif		/* __cplusplus */ 
 
+#include <stdint.h>
+
 int Level1Handler(void * o);
 int onExitLevel0(void * o);
 int onEnterLevel1(void * o);
@@ -33,6 +35,7 @@ int noOp(void * o);
 int ResetHandler(void * o);
 int ErrorHandlerUp(void * o);
 int ErrorHandlerDown(void * o);
+int onEnterError(void * o);
 
 #ifdef __cplusplus
 }

@@ -27,6 +27,7 @@ typedef enum
     Level5,
     Level6,
     Level7,
+    Level8,
 }FSMBulb_State_t;
 
 
@@ -46,6 +47,7 @@ int BulbFSM_Error(struct BulbFSM * fsm, void * o);
 int BulbFSM_TimeOut500(struct BulbFSM * fsm, void * o);
 int BulbFSM_TimeOut1000(struct BulbFSM * fsm, void * o);
 int BulbFSM_reset(struct BulbFSM * fsm, void * o);
+int BulbFSM_SomeEvent(struct BulbFSM * fsm, void * o);
 
 #ifdef __cplusplus
 }
