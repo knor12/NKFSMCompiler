@@ -65,17 +65,25 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
                 handler="\n"
                 OnEnter ="\n"
                 OnExit="\n"
-                if (transition.OnExit!=""):
+                Condition=""
+                #only add onExit, if the state actualy changes   
+                if ((transition.OnExit!="") and (transition.OriginalState != transition.NewState)):
                     OnExit = f'ret={transition.OnExit}(o);\n'
-                if (transition.OnEnter!=""):
+                #only add OnEnter, if the state actualy changes    
+                if ((transition.OnEnter!="") and (transition.OriginalState != transition.NewState)):
                     OnEnter = f'ret|={transition.OnEnter}(o);\n'
                 if (transition.TransitionHandler!=""):
-                    handler = f'ret|={transition.TransitionHandler}(o);\n'    
+                    handler = f'ret|={transition.TransitionHandler}(o);\n'
+                #assemble the transition condition
+                Condition= f'fsm->state == {transition.OriginalState}'
+                if (transition.Condition!=""):
+                    Condition = f'({Condition}){transition.Condition}'
+                    
                     
                 if event == transition.Event:
                     st+=f"\n\
     {transition.Comment}\n\
-    if ((fsm->state == {transition.OriginalState}){transition.Condition})\n\
+    if ({Condition})\n\
     {{\n\
         {OnExit}\
         {handler}\
