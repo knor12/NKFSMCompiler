@@ -62,12 +62,24 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
 \n\
     int ret = 0; \n'
             for transition in transitions:
+                handler="\n"
+                OnEnter ="\n"
+                OnExit="\n"
+                if (transition.OnExit!=""):
+                    OnExit = f'ret={transition.OnExit}(o);\n'
+                if (transition.OnEnter!=""):
+                    OnEnter = f'ret|={transition.OnEnter}(o);\n'
+                if (transition.TransitionHandler!=""):
+                    handler = f'ret|={transition.TransitionHandler}(o);\n'    
+                    
                 if event == transition.Event:
                     st+=f"\n\
     {transition.Comment}\n\
     if ((fsm->state == {transition.OriginalState}){transition.Condition})\n\
     {{\n\
-        ret = {transition.TransitionHandler}(o);\n\
+        {OnExit}\
+        {handler}\
+        {OnEnter}\
         if (ret >= 0)\n\
         {{\n\
             fsm->state = {transition.NewState};\n\

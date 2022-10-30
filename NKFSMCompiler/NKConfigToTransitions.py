@@ -36,7 +36,23 @@ class NKConfigToTransitions:
             if len(words)>= 5:
                 if (words[0]=="$TRANSITION"):
                     self.transitions.append(NKTransition(OriginalState=words[1], Event=words[2], NewState=words[3] , TransitionHandler=words[4], Condition=words[5], Comment=words[6]))
-                    
+        
+        #look for applicable OnEnter and OnExit handlers and add them to each transaction
+        
+        for line in Lines:
+            words = line.split(",")
+            if len (words) >=2:
+                if (words[0]=="$ONEXIT"):
+                    for transaction in self.transitions.transitions:
+                        if transaction.OriginalState==words[1]:
+                            transaction.setOnExit(words[2])
+                            
+                if (words[0]=="$ONENTER"):  
+                    for transaction in self.transitions.transitions:
+                        if transaction.NewState==words[1]:
+                            transaction.setOnEnter(words[2])                            
+                            
+        
         if (self.transitions.Name==""):
             print("Error: $NAME not defind\n")
             return False

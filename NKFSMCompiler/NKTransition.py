@@ -13,7 +13,23 @@ class NKTransition:
         self.Condition = Condition
         self.TransitionHandler = TransitionHandler.replace("\n" , "")
         self.Comment = Comment.replace("\n" , "")
+        self.OnExit=""
+        self.OnEnter=""
+        
+    def setOnEnter(self, onEnter):
+        self.OnEnter=onEnter
+        
+    def setOnExit(self, OnExit):
+        self.OnExit=OnExit    
    
     def __str__(self):
-        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler} , Comment={self.TransitionHandler}'
+        OnEnter =""
+        if (self.OnEnter!=""):
+            OnEnter =f', OnEnter={self.OnEnter}'
+            
+        OnExit =""
+        if (self.OnExit!=""):
+            OnExit =f', OnExit={self.OnExit}'
+            
+        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler} , Comment={self.TransitionHandler}, {OnEnter} {OnExit}'
         return st

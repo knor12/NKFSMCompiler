@@ -2,8 +2,20 @@ $NAME,Bulb,,,,,
 $INITIALSTATE,Level0,,,,,
 $ERRORSTATE,Error_st,,,,,n
 ,,,,,,
+,,,,,,
+,state,callback,,,,
+$ONEXIT,Level0,onExitLevel0,,,,
+$ONENTER,Level0,onEnterLevel0,,,,
+$ONEXIT,Level1,onExitLevel1,,,,
+$ONENTER,Level1,onEnterLevel1,,,,
+$ONEXIT,Level2,onExitLevel2,,,,
+$ONENTER,Level2,onEnterLevel2,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
 Transition,Start State,Event,End State,Transition Handler,Condition,Comment
-$TRANSITION,Level0,Up,Level1,Level1Handler,,/*if up event and in Level0 go to Level1*/
+$TRANSITION,Level0,Up,Level1,,,/*if up event and in Level0 go to Level1*/
 $TRANSITION,Level0,Down,Level0,Level0Handler,,
 $TRANSITION,Level0,Error,Error_st,ErrorHandler,||(1==1),/*condition to process  event from any state*/
 ,,,,,,

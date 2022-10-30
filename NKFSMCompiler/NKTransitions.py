@@ -36,8 +36,15 @@ class NKTransitions:
 
     def getHandlers(self):
         handlers = []
+        #append handlers
         for transition in self.transitions:
             handlers.append(transition.TransitionHandler)
+            if transition.OnExit != "":
+                handlers.append(transition.OnExit)
+
+            if transition.OnEnter != "":
+                handlers.append(transition.OnEnter)
+        #remove duplicates        
         handlers = list(dict.fromkeys(handlers))     
         return  handlers         
     
