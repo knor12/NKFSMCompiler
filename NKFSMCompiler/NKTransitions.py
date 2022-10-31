@@ -24,14 +24,18 @@ class NKTransitions:
             states.append(transition.OriginalState)
             states.append(transition.NewState)
         states.append(self.errorSate)
-        states = list(dict.fromkeys(states))                
+        states = list(dict.fromkeys(states)) 
+        #remove states that are just an empty string    
+        states = [x for x in states if x != ''] 
         return  states 
 
     def getEvents(self):
         events = []
         for transition in self.transitions:
             events.append(transition.Event)
-        events = list(dict.fromkeys(events))     
+        events = list(dict.fromkeys(events))   
+        #remove events that are just an empty string    
+        events = [x for x in events if x != '']         
         return  events 
 
     def getHandlers(self):
@@ -45,7 +49,9 @@ class NKTransitions:
             if transition.OnEnter != "":
                 handlers.append(transition.OnEnter)
         #remove duplicates        
-        handlers = list(dict.fromkeys(handlers))     
+        handlers = list(dict.fromkeys(handlers))
+        #remove handlers that are just an empty string    
+        handlers = [x for x in handlers if x != '']         
         return  handlers         
     
     def getConditions(self):
@@ -53,7 +59,9 @@ class NKTransitions:
         for transition in self.transitions:
             if (transition.Condition!=""):
                 conditions.append(transition.Condition)
-        conditions = list(dict.fromkeys(conditions))     
+        conditions = list(dict.fromkeys(conditions)) 
+        #remove conditions that are just an empty string    
+        conditions = [x for x in conditions if x != '']        
         return  conditions    
 
     def __str__(self):

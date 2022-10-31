@@ -13,10 +13,18 @@ class NKGeneratorGlueHeader:
     def __init__(self, transitions, directory):
         self.transitions =transitions
         self.directory=directory
+        self.UserCodeStartKey = "USER_CODE_START"
+        self.UserCodeEndKey ="USER_CODE_END"
+        self.userCodeImports=f'\n/*{self.UserCodeStartKey}_IMPORTS*/\n\n\n/*{self.UserCodeEndKey}_IMPORTS*/\n\n'
         self.filename=f'{transitions.Name}Glue'
         self.guard = f'{transitions.Name}Glue_H'
         self.CPPGuardStart = f'\n#ifdef __cplusplus \nextern \"C\" \n{{ \n#endif		/* __cplusplus */ \n'
         self.CPPGuardEnd = f'#ifdef __cplusplus\n}}\n#endif		/* __cplusplus */\n'
+    
+    def getFileName(self):
+        filename = self.filename
+        filePath=os.path.join(self.directory,filename+".h" )
+        return filePath; 
    
     def __str__(self):
         handlers = self.transitions.getHandlers()
@@ -33,7 +41,9 @@ class NKGeneratorGlueHeader:
 #ifndef  {self.guard}\n\
 #define  {self.guard}\n\
 {self.CPPGuardStart}\
-\n"
+\n\
+{self.userCodeImports}"
+
         for handler in handlers:
             st+=f"int {handler}(void * o);\n"
         st+=f"\n\
@@ -45,9 +55,9 @@ class NKGeneratorGlueHeader:
     def writeToFile(self):
         filename = self.filename
         filePath=os.path.join(self.directory,filename+".h" )
-        while (os.path.exists(filePath)):
-           filename = filename + "New" 
-           filePath=os.path.join(self.directory,filename+".h" ) 
+        #while (os.path.exists(filePath)):
+        #   filename = filename + "New" 
+        #   filePath=os.path.join(self.directory,filename+".h" ) 
         
         print(f'writing to {filePath}')    
         out = open(filePath, "w")
