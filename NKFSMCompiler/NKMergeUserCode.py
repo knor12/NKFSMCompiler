@@ -24,8 +24,8 @@ class NKMergeUserCode:
         for x in range(3):
             g11=g11.replace("  ", " ");
             g22=g22.replace("  ", " ");
-            g11=g11.replace(" \t", " ");
-            g22=g22.replace(" \t", " ");
+            g11=g11.replace("\t", " ");
+            g22=g22.replace("\t", " ");
 
         return (g11==g22)         
             

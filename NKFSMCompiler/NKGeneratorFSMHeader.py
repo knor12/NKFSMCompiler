@@ -17,6 +17,7 @@ class NKGeneratorFSMHeader:
         self.guard = f'{transitions.Name}FSM_H'
         self.structName = f'{transitions.Name}FSM'
         self.FSMStates_t=f'FSM{transitions.Name}_State_t'
+        self.FSMEvents_t=f'FSM{transitions.Name}_event_t'
         self.CPPGuardStart = f'\n#ifdef __cplusplus \nextern \"C\" \n{{ \n#endif		/* __cplusplus */ \n'
         self.CPPGuardEnd = f'#ifdef __cplusplus\n}}\n#endif		/* __cplusplus */\n'
     
@@ -44,10 +45,19 @@ typedef enum \n\
         for state_ in states: 
             st+=f'\n\
     {state_},'
-
-       
         st+=f"\n\
 }}{self.FSMStates_t};\n\n\
+\n"
+        st+=f"\n\
+/*definition of all events*/\n\
+typedef enum \n\
+{{"
+        for event_ in Events: 
+            st+=f'\n\
+    {event_},'       
+       
+        st+=f"\n\
+}}{self.FSMEvents_t};\n\n\
 \n"
 
         st+=f"\

@@ -5,6 +5,7 @@ __license__ = "MIT License"
 from NKTransitions import *
 from NKTransition import *
 from NKConfigToTransitions import *
+from NKSCXMLToTransitions import *
 from NKGeneratorGlueHeader import *
 from NKGeneratorGlueSource import *
 from NKGeneratorFSMHeader import *
@@ -30,8 +31,20 @@ if __name__ == "__main__":
         exit()
     
     
-    path = file #"./BulbConfig.csv"
-    reader = NKConfigToTransitions()
+    path = file 
+    
+    #find the extension of the configuration file
+    filename, file_extension = os.path.splitext(path)
+    #print(f"file name={filename}, file extension={file_extension}")
+    reader = 0
+    if ".csv" == file_extension:
+        reader = NKConfigToTransitions()
+    elif ".scxml" == file_extension:
+        reader = NKSCXMLToTransitions()
+    else:
+        print(f"extension of {path} not identified\n")
+        exit( False)
+        
     
     #read configuration
     if not reader.read(ConfigPath =path):

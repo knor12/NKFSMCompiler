@@ -25,11 +25,15 @@ class NKTransition:
     def __str__(self):
         OnEnter =""
         if (self.OnEnter!=""):
-            OnEnter =f', OnEnter={self.OnEnter}'
+            OnEnter =f', OnEnter={self.OnEnter},'
             
         OnExit =""
         if (self.OnExit!=""):
-            OnExit =f', OnExit={self.OnExit}'
+            OnExit =f', OnExit={self.OnExit},'
             
-        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler} , Comment={self.TransitionHandler}, {OnEnter} {OnExit}'
+        condition =""
+        if (self.Condition!=""):
+            condition =f', condition={self.Condition},'    
+            
+        st = f'OriginalState={self.OriginalState}, Event={self.Event}, NewState={self.NewState}, TransitionHandler={self.TransitionHandler} , Comment={self.TransitionHandler}, {OnEnter} {OnExit} {condition}'
         return st
