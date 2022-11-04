@@ -1,1 +1,0 @@
-python3 .\NKFSMCompiler\NKFSMCompiler.py .\BulbConfig.csv
