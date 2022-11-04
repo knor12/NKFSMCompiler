@@ -49,6 +49,8 @@ if __name__ == "__main__":
     #read configuration
     if not reader.read(ConfigPath =path):
         exit()
+        
+    print("Configuration read OK")    
            
     #print configuration model read
     model = reader.getTransitions()
@@ -59,7 +61,7 @@ if __name__ == "__main__":
     #build the glue header
     glueHeaderWriter = NKGeneratorGlueHeader(transitions=model, directory="./")
     st = f'{glueHeaderWriter}' 
-    print(st)
+    #print(st)
     #if file exists rename it
     fileName= glueHeaderWriter.getFileName()
     if os.path.exists(fileName):
@@ -69,14 +71,17 @@ if __name__ == "__main__":
             os.remove(oldFile_)
         os.rename(fileName, oldFile_)
         glueHeaderWriter.writeToFile()
+        print(f'{fileName} generated OK') 
         merger = NKMergeUserCode(oldFile=oldFile_, newFile=fileName, UserCodeStartKey=UserCodeStartKey_,UserCodeEndKey=UserCodeEndKey_ , keepBackup=False)
         if merger.merge():
             print (f"{fileName} and {oldFile_} merge OK \n")
         else :
             print (f"{fileName} and {oldFile_} merge NOK \n")
+            exit()
         
     else: 
         glueHeaderWriter.writeToFile()
+        print(f'{fileName} generated OK')    
         
      
 
@@ -92,6 +97,7 @@ if __name__ == "__main__":
             os.remove(oldFile_)
         os.rename(fileName, oldFile_)
         glueSourceWriter.writeToFile()
+        print(f'{fileName} generated OK')
         merger2 = NKMergeUserCode(oldFile=oldFile_, newFile=fileName,UserCodeStartKey=UserCodeStartKey_,UserCodeEndKey=UserCodeEndKey_, keepBackup=False)
         if merger2.merge():
             print (f"{fileName} and {oldFile_} merge OK \n")
@@ -99,16 +105,19 @@ if __name__ == "__main__":
             print (f"{fileName} and {oldFile_} merge NOK \n")
         
     else: 
-        glueSourceWriter.writeToFile() 
+        glueSourceWriter.writeToFile()
+        print(f'{fileName} generated OK')    
 
     #build the fsm header
     FSMHeaderWriter = NKGeneratorFSMHeader(transitions=model, directory="./")
-    st = f'{FSMHeaderWriter}' 
-    print(st)
-    FSMHeaderWriter.writeToFile()    
+    #st = f'{FSMHeaderWriter}' 
+    #print(st)
+    FSMHeaderWriter.writeToFile()
+    print(f'{FSMHeaderWriter.filename} generated OK')     
     
     #build the FSM source
     FSMSourceWriter = NKGeneratorFSMSource(transitions=model, directory="./")
-    st = f'{FSMSourceWriter}' 
-    print(st)
-    FSMSourceWriter.writeToFile() 
+    #st = f'{FSMSourceWriter}' 
+    #print(st)
+    FSMSourceWriter.writeToFile()
+    print(f'{FSMHeaderWriter.filename} generated OK')    

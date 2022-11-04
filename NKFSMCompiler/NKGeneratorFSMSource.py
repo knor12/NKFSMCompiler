@@ -66,11 +66,13 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
                 OnEnter ="\n"
                 OnExit="\n"
                 Condition=""
+                raiseEventEntry=""
+                raiseEventExit=""
                 #only add onExit, if the state actualy changes   
-                if ((transition.OnExit!="") and (transition.OriginalState != transition.NewState)):
+                if ((transition.OnExit!="") and (transition.OriginalState != transition.NewState) or True):
                     OnExit = f'ret={transition.OnExit}(o);\n'
                 #only add OnEnter, if the state actualy changes    
-                if ((transition.OnEnter!="") and (transition.OriginalState != transition.NewState)):
+                if ((transition.OnEnter!="") and (transition.OriginalState != transition.NewState) or True):
                     OnEnter = f'ret|={transition.OnEnter}(o);\n'
                 if (transition.TransitionHandler!=""):
                     handler = f'ret|={transition.TransitionHandler}(o);\n'
@@ -78,6 +80,12 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
                 Condition= f'fsm->state == {transition.OriginalState}'
                 if (transition.Condition!=""):
                     Condition = f'({Condition}){transition.Condition}'
+                #see if we have to execute a rotine for raised events
+                if (transition.OnEntryRaiseEvent!=""):
+                    raiseEventEntry= f'ret|= {self.structName}_{transition.OnEntryRaiseEvent}(fsm,o);/* on entry rased event*/\n'
+                #see if we have to execute a rotine for raised events
+                if (transition.OnExitRaiseEvent!=""):
+                    raiseEventExit= f'ret|= {self.structName}_{transition.OnExitRaiseEvent}(fsm,o);/*on exit rased event*/\n'                    
                     
                     
                 if event == transition.Event:
@@ -95,6 +103,8 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
         {{\n\
             fsm->state = {self.transitions.errorSate};\n\
         }}\n\
+        {raiseEventExit}\
+        {raiseEventEntry}\
         return ret;\n\
     }}\n\
     \n"

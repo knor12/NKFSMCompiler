@@ -36,7 +36,27 @@ class NKTransitions:
         events = list(dict.fromkeys(events))   
         #remove events that are just an empty string    
         events = [x for x in events if x != '']         
+        return  events
+
+    def getExitRaiseEvents(self):
+        events = []
+        for transition in self.transitions:
+            if transition.OnExitRaiseEvent != "":
+                events.append(transition.OnExitRaiseEvent)
+        events = list(dict.fromkeys(events))   
+        #remove events that are just an empty string    
+        events = [x for x in events if x != '']         
         return  events 
+
+    def getEntryRaiseEvents(self):
+        events = []
+        for transition in self.transitions:
+            if transition.OnEntryRaiseEvent != "":
+                events.append(transition.OnEntryRaiseEvent)
+        events = list(dict.fromkeys(events))   
+        #remove events that are just an empty string    
+        events = [x for x in events if x != '']         
+        return  events        
 
     def getHandlers(self):
         handlers = []
@@ -69,12 +89,16 @@ class NKTransitions:
         States=self.getStates()
         Handlers=self.getHandlers()
         Conditions = self.getConditions()
+        OnEntryRaiseEvents = self.getEntryRaiseEvents()
+        OnExitRaiseEvents =self.getExitRaiseEvents()
         st =f'Name={self.Name} \n'
         st+=f'Initial State={self.initialState}\n'
         st+=f'Error State={self.errorSate}\n'
         st+=f'States={States}\n'
         st+=f'Handlers={Handlers}\n'
         st+=f'Events={Events}\n\n'
+        st+=f'Entry Raise Events={OnEntryRaiseEvents}\n\n'
+        st+=f'Exit Raise Events={OnExitRaiseEvents}\n\n'
         st+=f'conditions={Conditions}\n\n'
         for transition in self.transitions:
             st +=f'Transition={transition}\n'
