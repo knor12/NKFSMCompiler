@@ -14,12 +14,12 @@
 #define noEvent_ (4)
 #define timeOut20_ (5)
 #define timeOut2_ (6)
-uint32_t evets[] = {timeOut2_,timeOut2_,timeOut2_,timeOut2_, timeOut1_,
+uint32_t evets[] = {timeOut2_, timeOut1_,
                     timeOut20_,
-                    timeOut1_,timeOut1_,timeOut1_,timeOut1_,timeOut1_,timeOut1_,timeOut1_,
-                    timeOut30_,timeOut30_,
-                   timeOut1_,timeOut1_,timeOut1_,timeOut1_,timeOut1_,
-                   timeOut60_,timeOut2_};
+                    timeOut1_,
+                    timeOut30_,
+                   timeOut1_,
+                   timeOut60_};
 
 
 uint32_t timeOut500;
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 
     for(int i = 0; i< (sizeof(evets)/sizeof(evets[0])); i++)
     {
+        printf("=================\n");
         switch(evets[i])
         {
         case timeOut1_ :

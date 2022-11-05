@@ -69,10 +69,10 @@ int {self.structName}_{event}(struct {self.structName} * fsm, void * o)\n\
                 raiseEventEntry=""
                 raiseEventExit=""
                 #only add onExit, if the state actualy changes   
-                if ((transition.OnExit!="") and (transition.OriginalState != transition.NewState) or True):
+                if ((transition.OnExit!="") and ((transition.OriginalState != transition.NewState)or True) ):
                     OnExit = f'ret={transition.OnExit}(o);\n'
                 #only add OnEnter, if the state actualy changes    
-                if ((transition.OnEnter!="") and (transition.OriginalState != transition.NewState) or True):
+                if ((transition.OnEnter!="") and ((transition.OriginalState != transition.NewState) or True) ):
                     OnEnter = f'ret|={transition.OnEnter}(o);\n'
                 if (transition.TransitionHandler!=""):
                     handler = f'ret|={transition.TransitionHandler}(o);\n'
