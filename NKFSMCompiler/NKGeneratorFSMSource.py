@@ -2,9 +2,9 @@ __author__      = "Noreddine Kessa"
 __copyright__   = "!"
 __license__ = "MIT License"
 
-from NKTransitions import *
-from NKTransition import *
-from NKConfigToTransitions import *
+from NKModelRoot import *
+from NKModelTransition import *
+#from NKConfigToTransitions import *
 from datetime import date
 import os 
 

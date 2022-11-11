@@ -2,10 +2,9 @@ __author__      = "Noreddine Kessa"
 __copyright__   = "!"
 __license__ = "MIT License"
 
-from NKTransitions import *
-from NKTransition import *
-from NKConfigToTransitions import *
-from NKSCXMLToTransitions import *
+from NKModelRoot import *
+from NKModelTransition import *
+#from NKConfigToTransitions import *
 from NKGeneratorGlueHeader import *
 from NKGeneratorGlueSource import *
 from NKGeneratorFSMHeader import *
@@ -40,7 +39,7 @@ if __name__ == "__main__":
     if ".csv" == file_extension:
         reader = NKConfigToTransitions()
     elif ".scxml" == file_extension:
-        reader = NKSCXMLToTransitions()
+        reader = NKRootModel()
     else:
         print(f"extension of {path} not identified\n")
         exit( False)
@@ -53,15 +52,15 @@ if __name__ == "__main__":
     print("Configuration read OK")    
            
     #print configuration model read
-    model = reader.getTransitions()
-    print (model)  
+    model = reader
+    #print (model)  
     
     
 
     #build the glue header
     glueHeaderWriter = NKGeneratorGlueHeader(transitions=model, directory="./")
-    st = f'{glueHeaderWriter}' 
-    #print(st)
+    st = f'glueHeader{glueHeaderWriter}' 
+    print(st)
     #if file exists rename it
     fileName= glueHeaderWriter.getFileName()
     if os.path.exists(fileName):

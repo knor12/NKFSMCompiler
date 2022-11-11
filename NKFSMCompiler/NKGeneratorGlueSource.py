@@ -2,9 +2,9 @@ __author__      = "Noreddine Kessa"
 __copyright__   = "!"
 __license__ = "MIT License"
 
-from NKTransitions import *
-from NKTransition import *
-from NKConfigToTransitions import *
+from NKModelRoot import *
+from NKModelTransition import *
+#from NKConfigToTransitions import *
 from datetime import date
 import os 
 
@@ -38,7 +38,13 @@ class NKGeneratorGlueSource:
 {self.userCodeImports}\
 \n"
         for handler in handlers:
-            userCodeSection = f'/*{self.UserCodeStartKey}_{handler}*/\n   (void)o;\n   return 0;\n/*{self.UserCodeEndKey}_{handler}*/\n'
+            userCodeSection = f'\
+    /*{self.UserCodeStartKey}_{handler}*/\n\
+    (void)o;\n\
+    printf("in handler:%s\\n", __FUNCTION__ );\n\
+    return 0;\n\
+    /*{self.UserCodeEndKey}_{handler}*/\n'
+    
             st+=f"\n\
 int {handler}(void * o)\n\
 {{\n\

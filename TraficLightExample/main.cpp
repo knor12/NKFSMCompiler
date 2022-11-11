@@ -8,18 +8,14 @@
 
 
 
-#define timeOut1_ (1)
-#define timeOut30_ (2)
-#define timeOut60_ (3)
-#define noEvent_ (4)
-#define timeOut20_ (5)
+#define timeOut100_ (1)
+#define on_ (2)
+#define off_ (3)
+#define timeOut1_ (4)
+#define timeOut10_ (5)
 #define timeOut2_ (6)
-uint32_t evets[] = {timeOut2_, timeOut1_,
-                    timeOut20_,
-                    timeOut1_,
-                    timeOut30_,
-                   timeOut1_,
-                   timeOut60_};
+#define  timeOut3_ (7)
+uint32_t evets[] = {timeOut100_, on_, timeOut1_, timeOut2_, timeOut3_,timeOut2_, timeOut100_, on_ , off_};
 
 
 uint32_t timeOut500;
@@ -46,21 +42,27 @@ int main(int argc, char *argv[])
         printf("=================\n");
         switch(evets[i])
         {
+        case timeOut100_ :
+            TraficLightFSM_timeOut100(&light, (void*)0);
+            break;
+        case on_ :
+            TraficLightFSM_on(&light, (void*)0);
+            break;
+
+        case off_ :
+            TraficLightFSM_off(&light, (void*)0);
+            break;
         case timeOut1_ :
             TraficLightFSM_timeOut1(&light, (void*)0);
             break;
-        case timeOut30_ :
-            TraficLightFSM_timeOut30(&light, (void*)0);
-            break;
-
-        case timeOut60_ :
-            TraficLightFSM_timeOut60(&light, (void*)0);
-            break;
-        case timeOut20_ :
-            TraficLightFSM_timeOut20(&light, (void*)0);
+        case timeOut10_ :
+            TraficLightFSM_timeOut10(&light, (void*)0);
             break;
         case timeOut2_ :
             TraficLightFSM_timeOut2(&light, (void*)0);
+            break;
+        case timeOut3_ :
+            TraficLightFSM_timeOut3(&light, (void*)0);
             break;
         }
     }
