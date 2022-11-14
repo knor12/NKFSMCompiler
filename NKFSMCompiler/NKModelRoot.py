@@ -14,6 +14,8 @@ class NKRootModel:
        self.SCXMLPath =""
        self.scxmlSignature = "xmlns=\"http://www.w3.org/2005/07/scxml\""
        self.Name=""
+       self.stateName=""
+       self.stateFullName=""
        self.initialState=""
        self.errorStateName =""
        self.subStates=[]
@@ -100,13 +102,12 @@ class NKRootModel:
         return dictionary
         
     def getSubStates(self,root, stateName):
+            if stateName == root.stateName or stateName == root.stateFullName:
+                return root.subStates
             for state in  root.subStates:
-                if stateName == state.stateName or stateName == state.stateFullName:
-                    return state.subStates
-            if len(state.subStates)>0:
-                l1=self.getSubStates(state, stateName)
-                if len(l1)>0:
-                    return l1
+                lst = self.getSubStates(state,stateName )
+                if len(lst)>0:
+                    return lst
             return []
 
     def getStateOnEntryFunction(self,root, stateName):
@@ -167,6 +168,7 @@ class NKRootModel:
         for state in  root.subStates:
             if state.initialState !="":
                 dictionary[state.stateName]=state.initialState
+                dictionary[state.stateFullName]=state.initialState
             if len(state.subStates)>0:
                 dictionary1 = self.getinitialStates(state)
                 dictionary.update(dictionary1)
@@ -202,6 +204,13 @@ class NKRootModel:
             for tran in l1:
                 if tran.NewState in initialStates.keys():
                     tran.NewState = initialStates[tran.NewState]
+            
+            #process the overall initialization state
+            if self.initialState in initialStates.keys():
+                self.initialState = initialStates[self.initialState]
+                
+        #make sure we have an init state
+        print (f"init state={self.initialState}")    
                     
                   
         #all transitions from composite states propagate them to each of their children states
@@ -213,6 +222,7 @@ class NKRootModel:
             for tran in l1:
                 if tran.OriginalState in states.keys():
                     subStates = self.getSubStates(self,tran.OriginalState )
+                    #print(f"sub states for {tran.OriginalState } are {subStates}")
                     counter = 0
                     for subState in subStates:
                         if counter ==0:
@@ -237,12 +247,7 @@ class NKRootModel:
             tran.OnEntryRaiseEvent = self.getStateOnEntryRaiseEvent(self, tran.NewState)
             tran.OnExit = self.getStateOnExitFunction(self, tran.OriginalState)
             tran.OnExitRaiseEvent = self.getStateOnExitRaiseEvent(self, tran.OriginalState)
-        #change the initial state to its full name
-        if self.initialState in states.keys():
-            self.initialState =states[self.initialState]  
-        else:
-            print(f'no full name is found for initial state{self.initialState}')
-            exit()
+        
         
         s=""
         for i in l1:
@@ -281,22 +286,22 @@ class NKRootModel:
             temp = SCXMLstate.find("./onexit/script")
             if not (temp is  None):
                 modelState.onExitScript = temp.text
-                print(f'on exit handler {modelState.onExitScript}')
+                #print(f'on exit handler {modelState.onExitScript}')
             
             temp = SCXMLstate.find("./onentry/script")
             if not (temp is  None):
                 modelState.onEntryScript = temp.text
-                print(f'on entry handler {modelState.onEntryScript}')
+                #print(f'on entry handler {modelState.onEntryScript}')
                 
             temp = SCXMLstate.find("./onentry/raise")
             if not (temp is  None):
                 modelState.onEntryRaiseEvent = temp.attrib["event"]
-                print(f'on entry event {modelState.onEntryRaiseEvent}')
+                #print(f'on entry event {modelState.onEntryRaiseEvent}')
                 
             temp =SCXMLstate.find("./onexit/raise")
             if not (temp is  None):
                 modelState.onExitRaiseEvent = temp.attrib["event"]
-                print(f'on exit event {modelState.onExitRaiseEvent}')
+                #print(f'on exit event {modelState.onExitRaiseEvent}')
                 
             modelState.comment =""
             
@@ -370,6 +375,8 @@ class NKRootModel:
 
         #get the state machine name
         self.Name = root.get("name")
+        self.stateName=self.Name
+        self.stateFullName=self.Name
         self.initialState = root.get("initial")
         
         self.errorSate=f'{self.Name}_errorState'
@@ -380,7 +387,7 @@ class NKRootModel:
 
         #get all states from the top level    
         states = root.findall('state')
-        print(f'states{states}')
+        #print(f'states{states}')
         for SCXMLstate in states:
             
         
