@@ -165,6 +165,8 @@ class NKRootModel:
  
     def getinitialStates(self, root):
         dictionary ={}
+        dictionary[root.stateName]=root.initialState
+        dictionary[root.stateFullName]=root.initialState
         for state in  root.subStates:
             if state.initialState !="":
                 dictionary[state.stateName]=state.initialState
@@ -197,7 +199,7 @@ class NKRootModel:
         
         #for the events that are going to composite state send them to init state
         initialStates = self.getinitialStates(self)
-        #print(f"initial states dictionary {initialStates}")
+        print(f"initial states dictionary {initialStates}")
         count = 10
         while count > 0: #keep doing it untill you resolve all nested states
             count-=1
@@ -378,7 +380,7 @@ class NKRootModel:
         self.stateName=self.Name
         self.stateFullName=self.Name
         self.initialState = root.get("initial")
-        
+        self.initialState = f"{self.stateFullName}_{self.initialState}"
         self.errorSate=f'{self.Name}_errorState'
         
         #assign an error state name
