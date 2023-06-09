@@ -1,4 +1,8 @@
-VERSION = "V0.02"
+#Initial release
+#VERSION = "V0.02"
+
+#add user defined section to the SFM structure.
+VERSION = "V0.03"
 
 class NKFSMVersion:
 

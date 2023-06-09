@@ -20,7 +20,15 @@ class NKGeneratorFSMHeader:
         self.FSMEvents_t=f'FSM{transitions.Name}_event_t'
         self.CPPGuardStart = f'\n#ifdef __cplusplus \nextern \"C\" \n{{ \n#endif		/* __cplusplus */ \n'
         self.CPPGuardEnd = f'#ifdef __cplusplus\n}}\n#endif		/* __cplusplus */\n'
-    
+        self.UserCodeStartKey = "USER_CODE_START"
+        self.UserCodeEndKey ="USER_CODE_END"
+     
+
+    def getFileName(self):
+        filename = self.filename
+        filePath=os.path.join(self.directory,filename+".h" )
+        return filePath;     
+        
     def __str__(self):
         Events = self.transitions.getEvents()
         states = self.transitions.getStates()
@@ -64,8 +72,13 @@ typedef enum \n\
 struct {self.structName} \n\
 {{\
 \n\
-   {self.FSMStates_t} state;\n\
-   int transitions; \n /*incremented every time a transition happens*/\
+    /*variable to save device state */\n\
+   {self.FSMStates_t} state;\n\n\
+   /*incremented every time a transition happens*/\n\
+   int transitions; \n\n \
+   /*{self.UserCodeStartKey}_MEMBERS*/\n\n\
+   /*add defined struct memebers here*/\n\n\
+   /*{self.UserCodeEndKey}_MEMBERS*/\n\
 \n\
 }};"
         st+=f"\n\

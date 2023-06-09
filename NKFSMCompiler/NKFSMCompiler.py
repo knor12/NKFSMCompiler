@@ -115,12 +115,37 @@ if __name__ == "__main__":
         print(f'{fileName} generated OK')    
 
     #build the fsm header
-    FSMHeaderWriter = NKGeneratorFSMHeader(transitions=model, directory="./")
+    #FSMHeaderWriter = NKGeneratorFSMHeader(transitions=model, directory="./")
     #st = f'{FSMHeaderWriter}' 
     #print(st)
-    FSMHeaderWriter.writeToFile()
-    beautifier.beatify(f'{FSMHeaderWriter.filename}.h')
-    print(f'{FSMHeaderWriter.filename}.h generated OK')     
+    #FSMHeaderWriter.writeToFile()
+    #beautifier.beatify(f'{FSMHeaderWriter.filename}.h')
+    #print(f'{FSMHeaderWriter.filename}.h generated OK')   
+    
+    #build the fsm header
+    FSMHeaderWriter = NKGeneratorFSMHeader(transitions=model, directory="./")
+    st = f'{FSMHeaderWriter}' 
+        #if file exists rename it
+    fileName= FSMHeaderWriter.getFileName()
+    if os.path.exists(fileName):
+        p = Path(fileName)
+        oldFile_ = p.with_suffix('.cold')
+        if os.path.exists(oldFile_):
+            os.remove(oldFile_)
+        os.rename(fileName, oldFile_)
+        FSMHeaderWriter.writeToFile()
+        print(f'{fileName} generated OK')
+        merger2 = NKMergeUserCode(oldFile=oldFile_, newFile=fileName,UserCodeStartKey=UserCodeStartKey_,UserCodeEndKey=UserCodeEndKey_, keepBackup=False)
+        if merger2.merge():
+            beautifier.beatify(fileName)
+            print (f"{fileName} and {oldFile_} merge OK \n")
+        else :
+            print (f"{fileName} and {oldFile_} merge NOK \n")
+        
+    else: 
+        glueSourceWriter.writeToFile()
+        beautifier.beatify(fileName)
+        print(f'{fileName} generated OK')     
     
     #build the FSM source
     FSMSourceWriter = NKGeneratorFSMSource(transitions=model, directory="./")
