@@ -129,7 +129,7 @@ if __name__ == "__main__":
     fileName= FSMHeaderWriter.getFileName()
     if os.path.exists(fileName):
         p = Path(fileName)
-        oldFile_ = p.with_suffix('.cold')
+        oldFile_ = p.with_suffix('.hold')
         if os.path.exists(oldFile_):
             os.remove(oldFile_)
         os.rename(fileName, oldFile_)
@@ -143,7 +143,7 @@ if __name__ == "__main__":
             print (f"{fileName} and {oldFile_} merge NOK \n")
         
     else: 
-        glueSourceWriter.writeToFile()
+        FSMHeaderWriter.writeToFile()
         beautifier.beatify(fileName)
         print(f'{fileName} generated OK')     
     
